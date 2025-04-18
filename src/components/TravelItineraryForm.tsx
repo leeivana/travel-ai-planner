@@ -56,6 +56,7 @@ const TravelItineraryForm = ({ onSubmit }: TravelPlannerFormProps) => {
                 <div className="form-group">
                     <label>Destination</label>
                     <input
+                        required
                         type="text"
                         value={formData.city}
                         onChange={(e) =>
@@ -66,6 +67,7 @@ const TravelItineraryForm = ({ onSubmit }: TravelPlannerFormProps) => {
                 <div className="form-group">
                     <label>Start Date</label>
                     <input
+                        required
                         type="date"
                         value={formData.startDate}
                         onChange={(e) =>
@@ -79,6 +81,7 @@ const TravelItineraryForm = ({ onSubmit }: TravelPlannerFormProps) => {
                 <div className="form-group">
                     <label>End Date</label>
                     <input
+                        required
                         type="date"
                         value={formData.endDate}
                         onChange={(e) =>
@@ -92,6 +95,7 @@ const TravelItineraryForm = ({ onSubmit }: TravelPlannerFormProps) => {
                 <div className="form-group">
                     <label>Budget</label>
                     <input
+                        required
                         type="number"
                         value={formData.budget}
                         onChange={(e) =>
