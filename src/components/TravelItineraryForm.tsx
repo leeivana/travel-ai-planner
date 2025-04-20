@@ -44,6 +44,22 @@ const TravelItineraryForm = ({ onSubmit }: TravelPlannerFormProps) => {
         });
     };
 
+    const onHandleDateChange = (type: string, date: string) => {
+        const updated = {
+            ...formData,
+            [type]: date,
+        };
+        const startDate = new Date(updated.startDate);
+        const endDate = new Date(updated.endDate);
+        const numberOfDays =
+            (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
+
+        setFormData({
+            ...updated,
+            numberOfDays,
+        });
+    };
+
     return (
         <div className="travel-itinerary-form">
             <h2>Travel Itinerary</h2>
@@ -71,10 +87,7 @@ const TravelItineraryForm = ({ onSubmit }: TravelPlannerFormProps) => {
                         type="date"
                         value={formData.startDate}
                         onChange={(e) =>
-                            setFormData({
-                                ...formData,
-                                startDate: e.target.value,
-                            })
+                            onHandleDateChange("startDate", e.target.value)
                         }
                     />
                 </div>
@@ -85,10 +98,7 @@ const TravelItineraryForm = ({ onSubmit }: TravelPlannerFormProps) => {
                         type="date"
                         value={formData.endDate}
                         onChange={(e) =>
-                            setFormData({
-                                ...formData,
-                                endDate: e.target.value,
-                            })
+                            onHandleDateChange("endDate", e.target.value)
                         }
                     />
                 </div>

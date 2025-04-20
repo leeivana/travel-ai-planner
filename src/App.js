@@ -15,14 +15,17 @@ function App() {
             body: JSON.stringify(formData),
         });
         const data = await resp.json();
-        setPlan(data);
+        setPlan(data.itinerary);
     };
 
     return (
         <div>
             <header>AI Trip Planner</header>
             {plan ? (
-                <DisplayItinerary plan={plan.itinerary} />
+                <DisplayItinerary
+                    plan={plan.plan}
+                    onUndo={() => setPlan(false)}
+                />
             ) : (
                 <TravelItineraryForm onSubmit={handleSubmit} />
             )}
