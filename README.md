@@ -74,20 +74,3 @@ npm start
 ```
 
 The application should now be running at `http://localhost:3000`
-
-## Project Structure
-
-travel-api-planner/
-├── src/
-│ ├── components/
-│ │ ├── Accordion.tsx
-│ │ ├── DisplayItinerary.tsx
-│ │ ├── LoadingAnimation.tsx
-│ │ └── TravelItineraryForm.tsx
-│ ├── types.ts
-│ ├── mock.tsx
-│ └── App.js
-├── server/
-│ ├── server.ts
-│ └── utils.ts
-└── public/
