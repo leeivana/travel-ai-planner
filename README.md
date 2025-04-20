@@ -74,3 +74,9 @@ npm start
 ```
 
 The application should now be running at `http://localhost:3000`
+
+## Future Enhancements
+
+-   [ ] Add user authentication
+-   [ ] Save and share itineraries
+-   [ ] Export itinerary to PDF/Calendar
