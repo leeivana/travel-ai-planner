@@ -18,10 +18,10 @@ const Accordion = ({
             <button
                 className={`${
                     isOpen ? "rounded-t-lg" : "rounded-lg"
-                } w-full px-4 py-3 flex justify-between items-center bg-zinc-800 hover:bg-zinc-700 transition-colors`}
+                } w-full px-4 py-3 flex justify-between items-center bg-zinc-1000 border-b border-zinc-700 hover:bg-zinc-800 transition-colors`}
                 onClick={() => setIsOpen(!isOpen)}
             >
-                <span className="font-medium text-zinc-100">{title}</span>
+                <span className="font-medium text-zinc-300">{title}</span>
                 <svg
                     className={`w-5 h-5 text-zinc-100 transition-transform duration-200 ${
                         isOpen ? "rotate-180" : ""
