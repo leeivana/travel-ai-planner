@@ -5,6 +5,13 @@ interface TravelPlannerFormProps {
     onSubmit: (data: PlannerFormData) => void;
 }
 
+const pageMap = {
+    1: "city",
+    2: "dates",
+    3: "budget",
+    4: "notes",
+};
+
 /**
  * TravelItineraryForm Component
  *
@@ -23,6 +30,9 @@ const TravelItineraryForm = ({ onSubmit }: TravelPlannerFormProps) => {
         city: "",
         numberOfDays: 1,
         page: 1,
+        startDate: "",
+        endDate: "",
+        notes: "",
     });
 
     const onHandleDateChange = (type: string, date: string) => {
@@ -41,104 +51,138 @@ const TravelItineraryForm = ({ onSubmit }: TravelPlannerFormProps) => {
         });
     };
 
+    const onValidateData = (): boolean => {
+        const val = pageMap[formData.page];
+        if (val === "dates") {
+            if (!formData.startDate || !formData.endDate) {
+                return true;
+            }
+        }
+
+        if (val === "budget") {
+            if (formData.budget === "") {
+                return true;
+            }
+        }
+
+        if (val === "city") {
+            if (formData.city === "") {
+                return true;
+            }
+        }
+
+        return false;
+    };
+
     return (
         <div className="flex items-center justify-center flex-grow w-full">
             <form
                 onSubmit={(e) => {
-                    debugger;
                     e.preventDefault();
+
+                    const isDataInvalid = onValidateData();
+                    if (isDataInvalid) {
+                        return;
+                    }
+
                     if (formData.page === 4) {
                         return onSubmit(formData);
-                    } else {
-                        setFormData({
-                            ...formData,
-                            page: formData.page + 1,
-                        });
                     }
+
+                    setFormData({
+                        ...formData,
+                        page: formData.page + 1,
+                    });
                 }}
             >
                 <div className="flex text-zinc-100">
-                    {formData.page === 1 && (
-                        <div>
-                            I want to travel to
-                            <input
-                                type="text"
-                                value={formData.city}
-                                onChange={(e) =>
-                                    setFormData({
-                                        ...formData,
-                                        city: e.target.value,
-                                    })
-                                }
-                                placeholder="city..."
-                                className="border-b-2 bg-transparent text-zinc-100 px-2 focus:outline-none focus:border-blue-700 w-40"
-                            />
-                        </div>
-                    )}
+                    <div className="pt-3">
+                        {formData.page === 1 && (
+                            <div>
+                                I want to travel to
+                                <input
+                                    required
+                                    type="text"
+                                    value={formData.city}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            city: e.target.value,
+                                        })
+                                    }
+                                    pattern="[a-zA-Z]+"
+                                    placeholder="city..."
+                                    className="border-b-2 bg-transparent text-zinc-100 px-2 focus:outline-none focus:border-blue-700 w-40 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500"
+                                />
+                            </div>
+                        )}
 
-                    {formData.page === 2 && (
-                        <div>
-                            I will travel from
-                            <input
-                                type="date"
-                                value={formData.startDate}
-                                onChange={(e) =>
-                                    onHandleDateChange(
-                                        "startDate",
-                                        e.target.value
-                                    )
-                                }
-                                className="border-b-2 bg-transparent text-zinc-100 px-2 focus:outline-none focus:border-blue-700 w-40"
-                            />{" "}
-                            to{" "}
-                            <input
-                                type="date"
-                                value={formData.endDate}
-                                onChange={(e) =>
-                                    onHandleDateChange(
-                                        "endDate",
-                                        e.target.value
-                                    )
-                                }
-                                className="border-b-2 bg-transparent text-zinc-100 px-2 focus:outline-none focus:border-blue-700 w-40"
-                            />
-                        </div>
-                    )}
+                        {formData.page === 2 && (
+                            <div>
+                                I will travel from
+                                <input
+                                    type="date"
+                                    value={formData.startDate}
+                                    onChange={(e) =>
+                                        onHandleDateChange(
+                                            "startDate",
+                                            e.target.value
+                                        )
+                                    }
+                                    className="border-b-2 bg-transparent text-zinc-100 px-2 focus:outline-none focus:border-blue-700 w-40"
+                                />{" "}
+                                to{" "}
+                                <input
+                                    type="date"
+                                    value={formData.endDate}
+                                    onChange={(e) =>
+                                        onHandleDateChange(
+                                            "endDate",
+                                            e.target.value
+                                        )
+                                    }
+                                    className="border-b-2 bg-transparent text-zinc-100 px-2 focus:outline-none focus:border-blue-700 w-40"
+                                />
+                            </div>
+                        )}
 
-                    {formData.page === 3 && (
-                        <div>
-                            The budget for my trip is
-                            <input
-                                type="text"
-                                value={formData.budget}
-                                onChange={(e) =>
-                                    setFormData({
-                                        ...formData,
-                                        budget: e.target.value,
-                                    })
-                                }
-                                placeholder="budget..."
-                                className="border-b-2 bg-transparent text-zinc-100 px-2 focus:outline-none focus:border-blue-700 w-40"
-                            />
-                        </div>
-                    )}
-                    {formData.page === 4 && (
-                        <div>
-                            A few other notes about my trip are
-                            <input
-                                type="text"
-                                value={formData.notes}
-                                onChange={(e) =>
-                                    setFormData({
-                                        ...formData,
-                                        notes: e.target.value,
-                                    })
-                                }
-                                placeholder="notes..."
-                                className="border-b-2 bg-transparent text-zinc-100 px-2 focus:outline-none focus:border-blue-700 w-40"
-                            />
-                        </div>
-                    )}
+                        {formData.page === 3 && (
+                            <div>
+                                The budget for my trip is
+                                <input
+                                    required
+                                    type="text"
+                                    value={formData.budget}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            budget: e.target.value,
+                                        })
+                                    }
+                                    pattern="[0-9]*"
+                                    placeholder="budget..."
+                                    className="border-b-2 bg-transparent text-zinc-100 px-2 focus:outline-none focus:border-blue-700 w-40 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500"
+                                />
+                            </div>
+                        )}
+                        {formData.page === 4 && (
+                            <div>
+                                A few other notes about my trip are
+                                <input
+                                    type="text"
+                                    value={formData.notes}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            notes: e.target.value,
+                                        })
+                                    }
+                                    placeholder="notes..."
+                                    className="border-b-2 bg-transparent text-zinc-100 px-2 focus:outline-none focus:border-blue-700 w-40"
+                                />
+                            </div>
+                        )}
+                    </div>
 
                     <button
                         className="text-white hover:text-blue-600 px-4 py-2 text-lg transition"
