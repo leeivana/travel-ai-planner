@@ -24,7 +24,7 @@ function App() {
     };
 
     return (
-        <div className="flex flex-col items-center min-h-screen py-8 bg-zinc-900">
+        <div className="flex flex-col items-center min-h-screen py-8 bg-zinc-900 text-zinc-100">
             {!isLoading && plan && (
                 <DisplayItinerary plan={plan} onUndo={() => setPlan(false)} />
             )}
