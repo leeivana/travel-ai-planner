@@ -2,6 +2,9 @@
 
 A modern web application that helps users create personalized travel itineraries using AI. The application generates detailed day-by-day travel plans based on user preferences, including activities, meals, and notes.
 
+<img width="1427" alt="Screenshot 2025-04-20 at 6 00 06 PM" src="https://github.com/user-attachments/assets/c6b88ae7-532c-4c6f-bed6-26e33e23115c" />
+<img width="1434" alt="Screenshot 2025-04-20 at 5 59 42 PM" src="https://github.com/user-attachments/assets/75f49c98-af81-4bd1-9a74-09e051fc2b87" />
+
 ## Features
 
 -   🌍 Interactive travel planning interface
