@@ -5,12 +5,21 @@ interface TravelPlannerFormProps {
     onSubmit: (data: PlannerFormData) => void;
 }
 
+enum Page {
+    City = "city",
+    Dates = "dates",
+    Budget = "budget",
+    Notes = "notes",
+}
+
 const pageMap = {
-    1: "city",
-    2: "dates",
-    3: "budget",
-    4: "notes",
+    1: Page.City,
+    2: Page.Dates,
+    3: Page.Budget,
+    4: Page.Notes,
 };
+
+const pageCount = Object.keys(pageMap).length;
 
 /**
  * TravelItineraryForm Component
@@ -53,20 +62,14 @@ const TravelItineraryForm = ({ onSubmit }: TravelPlannerFormProps) => {
 
     const onValidateData = (): boolean => {
         const val = pageMap[formData.page];
-        if (val === "dates") {
+        if (val === Page.Dates) {
             if (!formData.startDate || !formData.endDate) {
                 return true;
             }
         }
 
-        if (val === "budget") {
+        if ([Page.Budget, Page.City].includes(val)) {
             if (formData.budget === "") {
-                return true;
-            }
-        }
-
-        if (val === "city") {
-            if (formData.city === "") {
                 return true;
             }
         }
@@ -85,7 +88,7 @@ const TravelItineraryForm = ({ onSubmit }: TravelPlannerFormProps) => {
                         return;
                     }
 
-                    if (formData.page === 4) {
+                    if (formData.page === pageCount) {
                         return onSubmit(formData);
                     }
 
@@ -96,6 +99,20 @@ const TravelItineraryForm = ({ onSubmit }: TravelPlannerFormProps) => {
                 }}
             >
                 <div className="flex text-zinc-100">
+                    {formData.page > 1 && (
+                        <button
+                            className="text-white hover:text-blue-600 px-4 py-2 text-lg transition"
+                            type="submit"
+                            onClick={() => {
+                                setFormData({
+                                    ...formData,
+                                    page: formData.page - 1,
+                                });
+                            }}
+                        >
+                            ←
+                        </button>
+                    )}
                     <div className="pt-3">
                         {formData.page === 1 && (
                             <div>
