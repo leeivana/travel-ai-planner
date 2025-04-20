@@ -1,15 +1,17 @@
 import React from "react";
 import { Itinerary } from "../types";
 import Accordion from "./Accordion.tsx";
-
-const thing = {};
+import { mockItinerary } from "../mock.ts";
 
 interface DisplayItineraryProps {
     plan: Itinerary;
     onUndo: () => void;
 }
 
-const DisplayItinerary = ({ plan, onUndo }: DisplayItineraryProps) => {
+const DisplayItinerary = ({
+    plan = mockItinerary.itinerary,
+    onUndo,
+}: DisplayItineraryProps) => {
     const { days = [], title = "" } = plan;
     return (
         <div className="w-full max-w-2xl mx-auto p-4">
@@ -18,23 +20,14 @@ const DisplayItinerary = ({ plan, onUndo }: DisplayItineraryProps) => {
                 {days?.map((day, index) => (
                     <div key={index}>
                         <Accordion title={`Day ${index + 1}`}>
-                            <p className="text-gray-700">
-                                <div>
-                                    {day.morning?.map((el) => el.description)}
-                                </div>
-                                <div>Lunch</div>
-                                <div>
-                                    {day.lunch?.map((el) => el.description)}
-                                </div>
-                                <div>Afternoon</div>
-                                <div>
-                                    {day.afternoon?.map((el) => el.description)}
-                                </div>
-                                <div>Dinner</div>
-                                <div>
-                                    {day.dinner?.map((el) => el.description)}
-                                </div>
-                            </p>
+                            <div>
+                                {day.morning?.map((el) => el.description)}
+                            </div>
+                            <div>{day.lunch?.map((el) => el.description)}</div>
+                            <div>
+                                {day.afternoon?.map((el) => el.description)}
+                            </div>
+                            <div>{day.dinner?.map((el) => el.description)}</div>
                         </Accordion>
                     </div>
                 ))}

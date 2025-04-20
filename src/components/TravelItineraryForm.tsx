@@ -121,6 +121,7 @@ const TravelItineraryForm = ({ onSubmit }: TravelPlannerFormProps) => {
                             <div>
                                 I will travel from
                                 <input
+                                    required
                                     type="date"
                                     value={formData.startDate}
                                     onChange={(e) =>
@@ -133,6 +134,7 @@ const TravelItineraryForm = ({ onSubmit }: TravelPlannerFormProps) => {
                                 />{" "}
                                 to{" "}
                                 <input
+                                    required
                                     type="date"
                                     value={formData.endDate}
                                     onChange={(e) =>
