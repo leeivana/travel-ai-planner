@@ -5,15 +5,6 @@ interface TravelPlannerFormProps {
     onSubmit: (data: PlannerFormData) => void;
 }
 
-enum interestTypes {
-    FOOD = "Food",
-    SHOPPING = "Shopping",
-    ENTERTAINMENT = "Entertainment",
-    CULTURE = "Culture",
-    NATURE = "Nature",
-    ADVENTURE = "Adventure",
-}
-
 /**
  * TravelItineraryForm Component
  *
@@ -31,18 +22,8 @@ const TravelItineraryForm = ({ onSubmit }: TravelPlannerFormProps) => {
     const [formData, setFormData] = useState({
         city: "",
         numberOfDays: 1,
-        interests: [],
+        page: 1,
     });
-
-    const onHandleInterestChange = (interest: interestTypes) => {
-        const { interests } = formData;
-        setFormData({
-            ...formData,
-            interests: interests?.includes(interest)
-                ? interests.filter((val) => val !== interest)
-                : [...interests, interest],
-        });
-    };
 
     const onHandleDateChange = (type: string, date: string) => {
         const updated = {
@@ -61,85 +42,111 @@ const TravelItineraryForm = ({ onSubmit }: TravelPlannerFormProps) => {
     };
 
     return (
-        <div className="travel-itinerary-form">
-            <h2>Travel Itinerary</h2>
+        <div className="flex items-center justify-center flex-grow w-full">
             <form
                 onSubmit={(e) => {
+                    debugger;
                     e.preventDefault();
-                    onSubmit(formData);
+                    if (formData.page === 4) {
+                        return onSubmit(formData);
+                    } else {
+                        setFormData({
+                            ...formData,
+                            page: formData.page + 1,
+                        });
+                    }
                 }}
             >
-                <div className="form-group">
-                    <label>Destination</label>
-                    <input
-                        required
-                        type="text"
-                        value={formData.city}
-                        onChange={(e) =>
-                            setFormData({ ...formData, city: e.target.value })
-                        }
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Start Date</label>
-                    <input
-                        required
-                        type="date"
-                        value={formData.startDate}
-                        onChange={(e) =>
-                            onHandleDateChange("startDate", e.target.value)
-                        }
-                    />
-                </div>
-                <div className="form-group">
-                    <label>End Date</label>
-                    <input
-                        required
-                        type="date"
-                        value={formData.endDate}
-                        onChange={(e) =>
-                            onHandleDateChange("endDate", e.target.value)
-                        }
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Budget</label>
-                    <input
-                        required
-                        type="number"
-                        value={formData.budget}
-                        onChange={(e) =>
-                            setFormData({ ...formData, budget: e.target.value })
-                        }
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Notes</label>
-                    <textarea
-                        rows={4}
-                        value={formData.notes}
-                        onChange={(e) =>
-                            setFormData({ ...formData, notes: e.target.value })
-                        }
-                    />
-                </div>
-                <div>
-                    Interests
-                    {Object.values(interestTypes).map((interest) => (
-                        <div key={interest}>
+                <div className="flex text-zinc-100">
+                    {formData.page === 1 && (
+                        <div>
+                            I want to travel to
                             <input
-                                type="checkbox"
-                                value={interest}
-                                checked={formData.interests.includes(interest)}
-                                onChange={() =>
-                                    onHandleInterestChange(interest)
+                                type="text"
+                                value={formData.city}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        city: e.target.value,
+                                    })
                                 }
+                                placeholder="city..."
+                                className="border-b-2 bg-transparent text-zinc-100 px-2 focus:outline-none focus:border-blue-700 w-40"
                             />
-                            {interest}
                         </div>
-                    ))}
+                    )}
+
+                    {formData.page === 2 && (
+                        <div>
+                            I will travel from
+                            <input
+                                type="date"
+                                value={formData.startDate}
+                                onChange={(e) =>
+                                    onHandleDateChange(
+                                        "startDate",
+                                        e.target.value
+                                    )
+                                }
+                                className="border-b-2 bg-transparent text-zinc-100 px-2 focus:outline-none focus:border-blue-700 w-40"
+                            />{" "}
+                            to{" "}
+                            <input
+                                type="date"
+                                value={formData.endDate}
+                                onChange={(e) =>
+                                    onHandleDateChange(
+                                        "endDate",
+                                        e.target.value
+                                    )
+                                }
+                                className="border-b-2 bg-transparent text-zinc-100 px-2 focus:outline-none focus:border-blue-700 w-40"
+                            />
+                        </div>
+                    )}
+
+                    {formData.page === 3 && (
+                        <div>
+                            The budget for my trip is
+                            <input
+                                type="text"
+                                value={formData.budget}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        budget: e.target.value,
+                                    })
+                                }
+                                placeholder="budget..."
+                                className="border-b-2 bg-transparent text-zinc-100 px-2 focus:outline-none focus:border-blue-700 w-40"
+                            />
+                        </div>
+                    )}
+                    {formData.page === 4 && (
+                        <div>
+                            A few other notes about my trip are
+                            <input
+                                type="text"
+                                value={formData.notes}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        notes: e.target.value,
+                                    })
+                                }
+                                placeholder="notes..."
+                                className="border-b-2 bg-transparent text-zinc-100 px-2 focus:outline-none focus:border-blue-700 w-40"
+                            />
+                        </div>
+                    )}
+
+                    <button
+                        className="text-white hover:text-blue-600 px-4 py-2 text-lg transition"
+                        type="submit"
+                    >
+                        →
+                    </button>
                 </div>
-                <button type="submit">Create Itinerary</button>
             </form>
         </div>
     );

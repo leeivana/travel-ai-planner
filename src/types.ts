@@ -1,7 +1,7 @@
 export interface TravelPlan {
     city: string;
     numberOfDays: number;
-    interests: string[];
+    notes: string;
     itinerary: DayPlan[];
 }
 
@@ -34,5 +34,5 @@ export interface Itinerary {
 export interface PlannerFormData {
     city: string;
     numberOfDays: number;
-    interests: string[];
+    notes: string;
 }

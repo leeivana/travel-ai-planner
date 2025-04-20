@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3001;
 interface TravelRequest {
     city: string;
     numberOfDays: number;
-    interests: string;
+    notes: string;
 }
 
 interface ApiResponse {
@@ -39,13 +39,13 @@ app.post(
     "/",
     async (req: Request<{}, {}, TravelRequest>, res: Response<ApiResponse>) => {
         try {
-            const { city, numberOfDays, interests } = req.body;
+            const { city, numberOfDays, notes = "" } = req.body;
 
-            if (!city || !numberOfDays || !interests) {
+            if (!city || !numberOfDays) {
                 return res.status(400).json({
                     success: false,
                     error: "Missing required fields",
-                    details: "Please provide city, numberOfDays, and interests",
+                    details: "Please provide city and numberOfDays",
                 });
             }
 
@@ -58,9 +58,11 @@ app.post(
                 },
             });
 
-            const prompt = `Generate a ${numberOfDays}-day travel itinerary for a trip to ${city}. 
-        The person is interested in: ${interests}. 
-        Include detailed plans for each day with cultural, food, and scenic activities.`;
+            const prompt = `Generate a ${numberOfDays}-day travel itinerary for a trip to ${city}. ${
+                notes
+                    ? `Here are some other notes about my trip: ${notes}.`
+                    : ""
+            }Include detailed plans for each day with cultural, food, and scenic activities.`;
 
             const completion = await openai.chat.completions.create({
                 model: "mistralai/mistral-7b-instruct",
