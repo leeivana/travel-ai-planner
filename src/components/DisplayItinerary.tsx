@@ -1,7 +1,12 @@
 import React from "react";
 import { Itinerary } from "../types";
 
-const DisplayItinerary = (plan: Itinerary, onUndo: () => {}) => {
+interface DisplayItineraryProps {
+    plan: Itinerary;
+    onUndo: () => void;
+}
+
+const DisplayItinerary = ({ plan, onUndo }: DisplayItineraryProps) => {
     const { days = [], title = "" } = plan;
     return (
         <div>
@@ -20,7 +25,7 @@ const DisplayItinerary = (plan: Itinerary, onUndo: () => {}) => {
                 </div>
             ))}
 
-            <button onClick={onUndo}>Reset Plan</button>
+            <button onClick={() => onUndo()}>Reset Plan</button>
         </div>
     );
 };
