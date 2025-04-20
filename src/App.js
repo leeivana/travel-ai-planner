@@ -22,7 +22,7 @@ function App() {
         <div>
             <header>AI Trip Planner</header>
             {plan ? (
-                <DisplayItinerary plan={plan} />
+                <DisplayItinerary plan={plan.itinerary} />
             ) : (
                 <TravelItineraryForm onSubmit={handleSubmit} />
             )}
