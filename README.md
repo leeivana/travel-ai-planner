@@ -7,12 +7,11 @@ A modern web application that helps users create personalized travel itineraries
 
 ## Features
 
--   🌍 Interactive travel planning interface
--   🤖 AI-powered itinerary generation
--   📅 Day-by-day activity scheduling
--   🎯 Customizable trip parameters
--   📱 Responsive design
--   🔄 Easy plan reset and modification
+-   Interactive travel planning interface
+-   AI-powered itinerary generation
+-   Day-by-day activity scheduling
+-   Customizable trip parameters
+-   Easy plan reset and modification
 
 ## Tech Stack
 
