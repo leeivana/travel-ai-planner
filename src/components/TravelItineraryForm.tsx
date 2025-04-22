@@ -23,16 +23,11 @@ const pageCount = Object.keys(pageMap).length;
 
 /**
  * TravelItineraryForm Component
- *
  * A form component that collects travel planning details from users including:
  * - Destination city
  * - Trip dates (start and end)
  * - Budget
  * - Notes
- * - Interest categories (Food, Shopping, Entertainment, etc.)
- *
- * The form data is managed using React useState hook and is submitted to a parent
- * component through the onSubmit prop callback.
  */
 const TravelItineraryForm = ({ onSubmit }: TravelPlannerFormProps) => {
     const [formData, setFormData] = useState({
