@@ -16,7 +16,6 @@ A modern web application that helps users create personalized travel itineraries
 ## Tech Stack
 
 -   **Frontend:**
-
     -   React
     -   TypeScript
     -   Tailwind CSS
@@ -78,7 +77,7 @@ npm start
 The application should now be running at `http://localhost:3000`
 
 ## Future Enhancements
-
+-   [ ] Chat bot answer questions and modify existing itinerary
 -   [ ] Add user authentication
 -   [ ] Save and share itineraries
 -   [ ] Export itinerary to PDF/Calendar
